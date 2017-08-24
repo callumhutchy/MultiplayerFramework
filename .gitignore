@@ -20,7 +20,7 @@ sysinfo.txt
 *.booproj
 *.csproj
 #*.sln
-*.suo
+#*.suo
 *.svd
 *.unityproj
 *.user
