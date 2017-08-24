@@ -48,8 +48,10 @@ namespace Server
 
 
         List<Data> processQueue = new List<Data>();
+        List<string> messageLogQueue = new List<string>();
 
         List<GraphData> conUsersList = new List<GraphData>();
+
         List<GraphData> messageReceivedList = new List<GraphData>();
         List<GraphData> messageSentList = new List<GraphData>();
 
@@ -63,6 +65,9 @@ namespace Server
         int messagesSent = 0;
 
         byte[] byteData = new byte[1024];
+
+        int worldWidth = 600;
+        int worldHeight = 250;
 
         public SGSserverForm()
         {
@@ -162,11 +167,59 @@ namespace Server
 
         }
         
+        private void DrawWorldMap()
+        {
+            while (true)
+            {
+                
+                
+                if(clientList.Count > 0)
+                {
+                    Bitmap bmp = new Bitmap(worldWidth, worldHeight);
+
+                    for (int i = 0; i < clientList.Count; i++)
+                    {
+
+                        Vector3 pos = clientList[i].position;
+
+                        bmp.SetPixel((int)pos.GetX(), (int)pos.GetY(), Color.Red);
+
+                    }
+
+                    pictureBox1.Image = bmp;
+                }
+                
+
+                Thread.Sleep(100);
+            }
+        }
+
+        private void HandleMessageLog()
+        {
+            while (true)
+            {
+                if (messageLogQueue.Count > 0)
+                {
+                    //txtLog.AppendText(messageLogQueue[0]);
+                    messageLogQueue.RemoveAt(0);
+                }
+                
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            Thread messageQueue = new Thread(new ThreadStart(HandleMessageLog));
 
             Thread processQueue = new Thread(new ThreadStart(Processing));
+
+            Thread worldMap = new Thread(new ThreadStart(DrawWorldMap));
+
+            messageQueue.Start();
+
             processQueue.Start();
+
+            worldMap.Start();
 
             chtConnectedUsers.Titles.Add("Connected Users");
             chtConnectedUsers.ChartAreas[0].AxisX.MajorGrid.LineWidth = 0;
@@ -251,6 +304,7 @@ namespace Server
                         ClientInfo clientInfo = new ClientInfo();
                         clientInfo.endpoint = epSender;
                         clientInfo.strName = msgReceived.strName;
+                        clientInfo.position = new Vector3(0, 0, 0);
                         clientInfo.rotation = 0;
 
                         clientList.Add(clientInfo);
@@ -404,8 +458,8 @@ namespace Server
 
         private void LogMessage(string message)
         {
-
-            txtLog.AppendText(message + "\r\n");
+            messageLogQueue.Add(message + "\r\n");
+            
         }
 
         private void btnList_Click(object sender, EventArgs e)

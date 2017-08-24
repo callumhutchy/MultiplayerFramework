@@ -1,4 +1,6 @@
-﻿namespace ClientTestUnit
+﻿using System.Drawing;
+
+namespace ClientTestUnit
 {
     partial class Form1
     {
@@ -37,6 +39,7 @@
             this.button1 = new System.Windows.Forms.Button();
             this.btnSend10 = new System.Windows.Forms.Button();
             this.btnSend100 = new System.Windows.Forms.Button();
+            this.btnSendMovement = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // btnStart
@@ -127,11 +130,22 @@
             this.btnSend100.UseVisualStyleBackColor = true;
             this.btnSend100.Click += new System.EventHandler(this.btnSend100_Click);
             // 
+            // btnSendMovement
+            // 
+            this.btnSendMovement.Location = new System.Drawing.Point(13, 196);
+            this.btnSendMovement.Name = "btnSendMovement";
+            this.btnSendMovement.Size = new System.Drawing.Size(137, 38);
+            this.btnSendMovement.TabIndex = 9;
+            this.btnSendMovement.Text = "Send Movement";
+            this.btnSendMovement.UseVisualStyleBackColor = true;
+            this.btnSendMovement.Click += new System.EventHandler(this.btnSendMovement_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(334, 302);
+            this.ClientSize = new System.Drawing.Size(665, 646);
+            this.Controls.Add(this.btnSendMovement);
             this.Controls.Add(this.btnSend100);
             this.Controls.Add(this.btnSend10);
             this.Controls.Add(this.button1);
@@ -160,6 +174,7 @@
         private System.Windows.Forms.Button button1;
         private System.Windows.Forms.Button btnSend10;
         private System.Windows.Forms.Button btnSend100;
+        private System.Windows.Forms.Button btnSendMovement;
     }
 }
 

@@ -17,12 +17,17 @@ namespace SGSclient
         Login,      //Log into the server
         Logout,     //Logout of the server
         Message,    //Send a text message to all the chat clients
-        List,       //Get a list of users in the chat room from the server
+        List,
+        Transform,
+        ClientList,//Get a list of users in the chat room from the server
         Null        //No command
     }
 
     public partial class SGSClient
     {
+
+
+
         public Socket clientSocket; //The main client socket
         public string strName;      //Name by which the user logs into the room
         public EndPoint epServer;   //The EndPoint of the server
@@ -57,7 +62,31 @@ namespace SGSclient
 
                 //Send it to the server
                 clientSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, epServer, new AsyncCallback(OnSend), null);
+
+            }
+            catch (Exception)
+            {
+                MessageBox.Show("Unable to send message to the server.", "SGSclientUDP: " + strName, MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+        
+
+        public void SendRandomMovement(int x, int y)
+        {
+            try
+            {
+                Data msgToSend = new Data();
+                msgToSend.strName = strName;
                 
+                
+                string temp = x.ToString() + "/" + y.ToString() + "/0/0";
+                msgToSend.strMessage = temp;
+                msgToSend.cmdCommand = Command.Transform;
+
+                byte[] byteData = msgToSend.ToByte();
+
+                //Send it to the server
+                clientSocket.BeginSendTo(byteData, 0, byteData.Length, SocketFlags.None, epServer, new AsyncCallback(OnSend), null);
             }
             catch (Exception)
             {

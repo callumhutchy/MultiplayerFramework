@@ -35,15 +35,17 @@ namespace Server
             this.chtConnectedUsers = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.timer1 = new System.Windows.Forms.Timer(this.components);
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.btnList = new System.Windows.Forms.Button();
             this.btnSendMessage = new System.Windows.Forms.Button();
             this.lblCount = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.btnList = new System.Windows.Forms.Button();
+            this.pictureBox1 = new System.Windows.Forms.PictureBox();
             ((System.ComponentModel.ISupportInitialize)(this.chtConnectedUsers)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
             this.splitContainer1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).BeginInit();
             this.SuspendLayout();
             // 
             // txtLog
@@ -75,7 +77,7 @@ namespace Server
             series1.MarkerBorderWidth = 0;
             series1.Name = "Series1";
             this.chtConnectedUsers.Series.Add(series1);
-            this.chtConnectedUsers.Size = new System.Drawing.Size(677, 702);
+            this.chtConnectedUsers.Size = new System.Drawing.Size(677, 404);
             this.chtConnectedUsers.TabIndex = 1;
             this.chtConnectedUsers.Text = "chart1";
             // 
@@ -97,10 +99,21 @@ namespace Server
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.pictureBox1);
             this.splitContainer1.Panel2.Controls.Add(this.chtConnectedUsers);
             this.splitContainer1.Size = new System.Drawing.Size(1029, 708);
             this.splitContainer1.SplitterDistance = 342;
             this.splitContainer1.TabIndex = 2;
+            // 
+            // btnList
+            // 
+            this.btnList.Location = new System.Drawing.Point(7, 671);
+            this.btnList.Name = "btnList";
+            this.btnList.Size = new System.Drawing.Size(142, 23);
+            this.btnList.TabIndex = 4;
+            this.btnList.Text = "List Players";
+            this.btnList.UseVisualStyleBackColor = true;
+            this.btnList.Click += new System.EventHandler(this.btnList_Click);
             // 
             // btnSendMessage
             // 
@@ -130,15 +143,13 @@ namespace Server
             this.label1.TabIndex = 1;
             this.label1.Text = "Clients Connected";
             // 
-            // btnList
+            // pictureBox1
             // 
-            this.btnList.Location = new System.Drawing.Point(7, 671);
-            this.btnList.Name = "btnList";
-            this.btnList.Size = new System.Drawing.Size(142, 23);
-            this.btnList.TabIndex = 4;
-            this.btnList.Text = "List Players";
-            this.btnList.UseVisualStyleBackColor = true;
-            this.btnList.Click += new System.EventHandler(this.btnList_Click);
+            this.pictureBox1.Location = new System.Drawing.Point(45, 427);
+            this.pictureBox1.Name = "pictureBox1";
+            this.pictureBox1.Size = new System.Drawing.Size(600, 250);
+            this.pictureBox1.TabIndex = 2;
+            this.pictureBox1.TabStop = false;
             // 
             // SGSserverForm
             // 
@@ -156,6 +167,7 @@ namespace Server
             this.splitContainer1.Panel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
             this.splitContainer1.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.pictureBox1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -170,6 +182,7 @@ namespace Server
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Button btnSendMessage;
         private System.Windows.Forms.Button btnList;
+        private System.Windows.Forms.PictureBox pictureBox1;
     }
 }
 

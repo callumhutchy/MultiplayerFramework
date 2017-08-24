@@ -21,7 +21,7 @@ namespace ClientTestUnit
 
         private void Form1_Load(object sender, EventArgs e)
         {
-
+            
         }
         List<SGSClient> clientList;
         private void btnStart_Click(object sender, EventArgs e)
@@ -37,9 +37,12 @@ namespace ClientTestUnit
                 clientList.Add(sgsClient);
                 lblCount.Text = clientList.Count.ToString();
             }
+
+            
+
         }
-
-
+        
+        
 
         private void btnKill10_Click(object sender, EventArgs e)
         {
@@ -101,6 +104,19 @@ namespace ClientTestUnit
             {
                 clientList[i].SendMessage();
                 Thread.Sleep(50);
+            }
+        }
+
+        static Random rand = new Random();
+
+        private void btnSendMovement_Click(object sender, EventArgs e)
+        {
+            
+            for (int i = 0; i < 500; i++)
+            {
+               
+
+                clientList[i].SendRandomMovement(rand.Next(600), rand.Next(250));
             }
         }
     }
