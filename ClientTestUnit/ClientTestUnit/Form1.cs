@@ -28,7 +28,7 @@ namespace ClientTestUnit
         {
             
             clientList = new List<SGSClient>();
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i <200; i++)
             {
                 SGSClient sgsClient = new SGSClient(i);
                 //Thread thread = new Thread(() => sgsClient.Start(i));
@@ -112,10 +112,9 @@ namespace ClientTestUnit
         private void btnSendMovement_Click(object sender, EventArgs e)
         {
             
-            for (int i = 0; i < 500; i++)
+            for (int i = 0; i < 100; i++)
             {
                
-
                 clientList[i].SendRandomMovement(rand.Next(600), rand.Next(250));
             }
         }

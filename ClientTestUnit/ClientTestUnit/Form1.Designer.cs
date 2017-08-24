@@ -144,7 +144,7 @@ namespace ClientTestUnit
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(665, 646);
+            this.ClientSize = new System.Drawing.Size(346, 285);
             this.Controls.Add(this.btnSendMovement);
             this.Controls.Add(this.btnSend100);
             this.Controls.Add(this.btnSend10);
