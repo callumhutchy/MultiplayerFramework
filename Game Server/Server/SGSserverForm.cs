@@ -46,8 +46,22 @@ namespace Server
             public float rotation; //Name by which the user logged into the chat room
         }
 
+        struct ProcessData
+        {
+            public Data data;
+            public long time;
 
-        List<Data> processQueue = new List<Data>();
+            public ProcessData(Data d, long t)
+            {
+                data = d;
+                time = t;
+            }
+
+        }
+
+
+
+        List<ProcessData> processQueue = new List<ProcessData>();
         List<string> messageLogQueue = new List<string>();
 
         List<GraphData> conUsersList = new List<GraphData>();
@@ -61,6 +75,8 @@ namespace Server
         //The main socket on which the server listens to the clients
         Socket serverSocket;
 
+        long timeOfStartUpInMillis = 0;
+
         int messagesReceived = 0;
         int messagesSent = 0;
 
@@ -71,6 +87,7 @@ namespace Server
 
         public SGSserverForm()
         {
+            timeOfStartUpInMillis = DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond;
             clientList = new List<ClientInfo>();
             InitializeComponent();
         }
@@ -115,12 +132,23 @@ namespace Server
             {
                 if (processQueue.Count > 0)
                 {
-
-                    Data data = processQueue[0];
+                    ProcessData pd = processQueue[0];
+                    Data data = pd.data;
+                    long timeDifference = ((DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond) - pd.time);
+                    Console.WriteLine(processQueue.Count + " " + timeDifference);
+                    if (((DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond) - pd.time) > 500) {
+                        goto Finish;
+                    }
                     if (data != null)
                     {
                         switch (data.cmdCommand)
                         {
+
+                            case Command.Login:
+
+
+                                break;
+
                             case Command.Transform:
                                 byte[] message;
                                 message = data.ToByte();
@@ -147,7 +175,8 @@ namespace Server
                         }
                     }
                 }
-
+                Finish:
+                Console.Write("");
             }
         }
 
@@ -286,9 +315,7 @@ namespace Server
 
                 //We will send this object in response the users request
                 Data msgToSend = new Data();
-
-                byte[] message;
-
+                
                 //If the message is to login, logout, or simple text message
                 //then when send to others the type of the message remains the same
                 msgToSend.cmdCommand = msgReceived.cmdCommand;
@@ -317,11 +344,9 @@ namespace Server
                         {
                             clientListMsg.strMessage += client.strName + ":" + client.rotation + "!";
                         }
-                        message = clientListMsg.ToByte();
 
-
-                        serverSocket.BeginSendTo(message, 0, message.Length, SocketFlags.None, clientInfo.endpoint,
-                                                            new AsyncCallback(OnSend), clientInfo.endpoint);
+                        processQueue.Add(new ProcessData(clientListMsg, DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond));
+                        
 
                         //Set the text of the message that we will broadcast to all users
                         msgToSend.strMessage = msgReceived.strMessage;
@@ -360,13 +385,12 @@ namespace Server
                         tempData.cmdCommand = Command.Transform;
                         tempData.strName = msgReceived.strName;
                         tempData.strMessage = msgReceived.strMessage;
-                        processQueue.Add(tempData);
+                        processQueue.Add(new ProcessData(tempData, DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond));
                         break;
 
                 }
                 if (msgToSend.cmdCommand != Command.List && msgToSend.cmdCommand != Command.Transform)   //List messages are not broadcasted
                 {
-                    message = msgToSend.ToByte();
 
                     foreach (ClientInfo clientInfo in clientList)
                     {
@@ -377,8 +401,8 @@ namespace Server
                                 LogMessage("Sending " + msgReceived.strName + " position to " + clientInfo.strName);
                             }
 
-                            serverSocket.BeginSendTo(message, 0, message.Length, SocketFlags.None, clientInfo.endpoint,
-                                                            new AsyncCallback(OnSend), clientInfo.endpoint);
+                            processQueue.Add(new ProcessData(msgToSend, DateTime.Now.Ticks / TimeSpan.TicksPerMillisecond));
+                            
 
                             //Send the message to all users
                         }
@@ -478,6 +502,7 @@ namespace Server
                 LogMessage(client.strName);
             }
         }
+        
     }
 
     class GraphData

@@ -1,6 +1,6 @@
 namespace Server
 {
-    partial class SGSserverForm
+    partial class MessageServerForm
     {
         /// <summary>
         /// Required designer variable.

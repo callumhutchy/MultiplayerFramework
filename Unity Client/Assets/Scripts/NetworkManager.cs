@@ -21,11 +21,6 @@ public class NetworkManager : MonoBehaviour {
 
 	byte[] byteData = new byte[1024];
 
-	
-
-
-
-
 	public void ConnectToServer(Character character){
 
 		strName = character.GetName();

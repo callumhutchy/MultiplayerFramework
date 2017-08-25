@@ -9,7 +9,7 @@
     <ProductVersion>10.0.20506</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
     <RootNamespace></RootNamespace>
-    <ProjectGuid>{E587AF13-F47D-811A-D0BD-0DFD3208191F}</ProjectGuid>
+    <ProjectGuid>{08C11BD1-BDB1-78B8-330D-8630978E50E9}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <AssemblyName>Assembly-CSharp-firstpass</AssemblyName>
@@ -121,7 +121,7 @@
  <HintPath>C:/Program Files/Unity/Editor/Data/UnityExtensions/Unity/UnityHoloLens/RuntimeEditor/UnityEngine.HoloLens.dll</HintPath>
  </Reference>
  <Reference Include="System.Data">
- <HintPath>C:/Users/callumh/Documents/GitHub/MultiplayerFramework/Multiplayer/Assets/Plugins/System.Data.dll</HintPath>
+ <HintPath>C:/Users/callumh/Documents/GitHub/MultiplayerFramework/Unity Client/Assets/Plugins/System.Data.dll</HintPath>
  </Reference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
