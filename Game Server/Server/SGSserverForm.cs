@@ -58,9 +58,7 @@ namespace Server
             }
 
         }
-
-
-
+        
         List<ProcessData> processQueue = new List<ProcessData>();
         List<string> messageLogQueue = new List<string>();
 
